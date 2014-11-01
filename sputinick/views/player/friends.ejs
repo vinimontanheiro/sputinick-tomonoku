@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+ 
+<h1 class="page-header">Amigos</h1>
+
+<table summary="Lista de amigos" id="tbListaAmigos"
+	class="table table-striped">
+	<tbody>
+		<% friends.forEach(function(amigo){ %>
+		<tr>
+			<td><img width="60" src="/img/no-avatar.jpg"></td>
+			<td><%= amigo.apelido_amigo %></td>
+			<td>
+				<a  class='btn btn-mini btn-amigo btnVerPerfil' data-numero="<%= amigo.nr_amigo %>" data-toggle='tooltip' data-placement='top'
+					data-original-title='Ver perfil' title='Ver perfil'><i class="glyphicon glyphicon-user"></i>
+				</a>
+				
+				<a  class='btn btn-mini btn-amigo btnEnviarMensagem' data-numero="<%= amigo.nr_amigo %>" data-toggle="modal" data-target="#modalEnviarMensagem" data-placement='top'
+					data-original-title='Enviar mensagem' title='Enviar mensagem'><i class="glyphicon glyphicon-envelope"></i>
+				</a>
+				
+				<a class='btn btn-mini btn-amigo btnConvidar' data-numero="<%= amigo.nr_amigo %>" data-toggle='tooltip' data-placement='top'
+					data-original-title='Convidar para jogar' title='Convidar para jogar'><i class="glyphicon glyphicon-tower"></i>
+			    </a>
+				
+			    <a  class='btn btn-mini btn-amigo btnExcluirAmigo' data-numero="<%= amigo.nr_amigo %>" data-toggle="modal" data-target="#modalExcluir" data-placement='top'
+			    	data-original-title='Excluir amigo' title='Excluir amigo'><i class="glyphicon glyphicon-trash"></i>
+			    </a>
+			</td>
+		</tr>
+		<% });%>
+	</tbody>
+</table>
+
+<%- include /removeFriendModal.ejs %>
+<%- include ../mensagens/modalEnviarMensagem.ejs %>
+
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#menu-amigos").addClass('active');
+			criaGrid();
+			
+		$('.btnVerPerfil').on('click',function(e){
+			var id = $(this).data('numero');	
+			location.href="/player/"+id;
+			e.preventDefault();
+		});		
+		
+		$('.btnEnviarMensagem').on('click',function(e){	
+			$('#btnEnviar').attr('data-numero',$(this).data('numero'))	
+			e.preventDefault();
+		});
+		
+		$('.btnExcluirAmigo').on('click',function(e){	
+			$('#btnExcluir').attr('data-numero',$(this).data('numero'))	
+			e.preventDefault();
+		});
+		
+		
+		$('.btnConvidar').on('click',function(e){	
+			e.preventDefault();
+		});
+		
+		
+	});
+	
+	function criaGrid(){
+		$('#tbListaAmigos').dataTable({
+			"sPaginationType" : "full_numbers",
+			"bPaginate" : true,
+			"bDestroy" : true,
+			"oLanguage" : {
+				"sProcessing" : "Aguarde enquanto os dados são carregados ...",
+				"sLengthMenu" : "Mostrar _MENU_ registros por página",
+				"sZeroRecords" : "Nenhum registro correspondente ao criterio encontrado",
+				"sInfoEmtpy" : "Exibindo 0 a 0 de 0 registros",
+				"sInfo" : "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+				"sInfoFiltered" : "",
+				"sSearch" : " ",
+				"oPaginate" : {
+					"sFirst" : "Primeiro",
+					"sPrevious" : "Anterior",
+					"sNext" : "Próximo",
+					"sLast" : "Último"
+				}
+			},
+			"aoColumns": [
+			              null,
+			              null,
+			              null
+			            ]
+		});
+		tratarGrid();
+	}
+	
+	function tratarGrid(){
+		$('table tbody tr td:nth-child(2)').css('padding-top','30px');
+		$('table tbody tr td:nth-child(3)').css('padding-top','22px');
+		$('table thead').hide();
+		$('table.dataTable.no-footer').css('border','none');
+		$('input[aria-controls="tbListaAmigos"]').addClass('form-control')
+		.attr('placeholder','Encontrar amigo').css('width','190px');
+		$('#tbListaAmigos_filter label').append('<i class="glyphicon glyphicon-search"></i>');
+		$('.glyphicon-search').css({'position ' : 'relative','top' :'-23px','left' : '-15px'});
+		$('.btn-amigo').css('border','1px solid #00B7FF');
+	}
+
+
+</script>
+    

@@ -1,0 +1,14 @@
+/********************************************
+**	Arquivo de estilo de Fonts
+** Autor: Antony Alkmim
+** Data: 03/06/2014
+********************************************/
+
+/*
+	Font para desenhar a Bola e X no campo de jogo
+*/
+@font-face{
+	font-family: Bumrush;
+	src:url("/fonts/Bumrush.ttf");
+}
+

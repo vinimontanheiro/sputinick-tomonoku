@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<style type="text/css">
+
+	#menu li a{
+		color:#ececec !important;
+	}
+
+	#menu li:hover a{
+		color:#333 !important;
+	}
+
+	#menu .active a{
+		color:#333 !important;
+		background: #fff !important;
+	}
+
+</style>
+
+
+<div id="menu-navigation-wrap" class="navbar-inverse">
+
+	<ul class="nav nav-pills nav-stacked" id="menu">
+		<li id="menu-jogar"><a href="/player/search"><span class="glyphicon glyphicon-tower"></span> Jogar</a></li>
+		<li id="menu-amigos"><a href="/player/friends"><span class="glyphicon glyphicon-user"></span> Amigos</a></li>
+		<li id="menu-mensagem"><a href="/mensagens"><span class="glyphicon glyphicon-send"></span> Mensagem</a></li>
+		<li id="menu-convites"><a data-toggle="modal" data-target="#modalConvite" href="#"><span class="glyphicon glyphicon-pushpin"></span> Convites</a></li>
+		<li id="menu-rank"><a href="/rank"><span class="glyphicon glyphicon-list-alt"></span> Ranking</a></li>
+		<li id="menu-config"><a href="/config"><span class="glyphicon glyphicon-cog"></span> Configurações</a></li>
+	</ul>
+</div>
+
+<%- include ../mensagens/modalConvite.ejs %>
+
+
+
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+	$(function(){
+
+		//REDIRECIONA PARA O PERFIL
+		$("#btPerfil").on('click',function(){
+			location.href="/player"
+		});
+
+		//EFETUA O LOGOUT
+		$("#btModalLogout").on('click',function(){
+			location.href="/player/logout"
+		});
+
+	});
+</script> 
+	
+<div class="row" id="player-info">
+
+	<div class="col-md-4" style="padding-right:0px; padding-left:7px;">
+		<a href="#" class="thumbnail"><img src="/img/no-avatar.jpg" alt="Avatar" title="<%= user.apelido %>" /></a>
+	</div>
+
+	<div class="col-md-8" style="padding:0px 0 0 7px;">
+		
+		<div class="" id="player-username" style="height:33px;"><%= user.apelido %></div>
+		<div>
+			<button type="button" class="btn btn-info btn-xs" id="btPerfil">Perfil <span class="glyphicon glyphicon-user"></span></button>
+			<button type="button" class="btn btn-danger btn-xs" id="btLogout" 
+				data-toggle="modal" data-target="#modalLogout">Sair <span class="glyphicon glyphicon-off"></span></button>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="modal fade" id="modalLogout">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Logout</h4>
+			</div>
+			<div class="modal-body">
+				<p>Deseja finalizar sua sessao?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-danger" id="btModalLogout">Sair <span class="glyphicon glyphicon-off"></span></button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

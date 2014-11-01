@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">
+	
+	$(function(){
+		$("#menu-config").addClass('active');
+
+		$("#btRemoverConta").click(function(){
+			location.href="/player/delete/<%= user.nr_jogador %>" 
+		});
+
+
+		$("#btSalvarSenha").click(function(){
+			
+			if($("#InputNovaSenha").val() != $("#InputConfirmaSenha").val() || $("#InputConfirmaSenha").val().length == 0){
+				$("#InputConfirmaSenha").parent().addClass('has-error');
+				$("#InputConfirmaSenha").parent().addClass('has-feedback');
+				$("#InputConfirmaSenha").next('span').removeClass('hidden');
+			}else{
+				
+				$.ajax({
+					url: '/player/alterar_senha',
+					type : 'post',
+					data : {
+						senha_antiga : $("#InputSenhaAtual").val(),
+						nova_senha : $("#InputNovaSenha").val()
+					},
+					success: function(data){
+						if(data.success == false){
+							$("#InputSenhaAtual").parent().addClass('has-error');
+							$("#InputSenhaAtual").parent().addClass('has-feedback');
+							$("#InputSenhaAtual").next('span').removeClass('hidden');
+						}else{
+							$("#modalAlterarSenha").modal('hide');
+							$("#modalAlterarSenhaSuccess").modal('show');
+							$("#formAlteraSenha input").each(function(){
+								$(this).val('');
+							});
+						}
+					}
+				});
+
+			}
+
+		});
+
+
+	});
+
+	
+
+</script>
+
+<h1 class="page-header">Configurações</h1>
+
+
+<div>
+	
+	<h3 class="page-header">Conta</h3>
+	<form role="form" class="row">
+		<div class="form-group col-md-3">
+			<label for="InputLogin">Login</label>
+			<input type="email" class="form-control" id="InputLogin" disabled value="<%= user.apelido %>">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="InputEmail">Email:</label>
+			<input type="email" class="form-control" id="InputEmail" disabled value="<%= user.email %>" size="35">
+		</div>
+		<div class="col-md-3">
+			<label for="InputEmail">Deseja alterar senha?</label>
+			<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAlterarSenha">Alterar Senha</button>
+		</div>
+	</form>
+
+</div>
+
+
+
+<div>
+	
+	<h3 class="page-header">Cancelar</h3>
+	<p>Deseja cancelar sua conta?</p>
+	<button class="btn btn-danger" data-toggle="modal" data-target="#modalCancelarConta">
+		<span class="glyphicon glyphicon-trash"></span> Cancelar conta</button>
+
+</div>
+
+
+<!-- MODAL PARA ALTERACAO DE SENHAS -->
+<div class="modal fade" id="modalAlterarSenha">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Alterar senha</h4>
+      </div>
+      <div class="modal-body" id="modalAlterarSenhaBody">
+        <p>Para sua segurança é aconselhado trocar de senha a cada 30 dias.</p>
+        <br/>
+
+        <form role="form" method="post" action="/player/altera_senha" id="formAlteraSenha">
+			<div class="form-group">
+				<label class="control-label" for="InputSenhaAtual">Senha atual:</label>
+				<input type="password" class="form-control" id="InputSenhaAtual" name="senha_atual" placeholder="Confirmar senha" required="required" />
+				<span class="glyphicon glyphicon-remove form-control-feedback hidden"></span>
+			</div>
+			<div class="form-group">
+				<label for="InputNovaSenha">Nova Senha:</label>
+				<input type="password" class="form-control" name="nova_senha" id="InputNovaSenha" required placeholder="Nova senha">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="InputConfirmaSenha">Confirma senha</label>
+				<input type="password" class="form-control" id="InputConfirmaSenha" name="confirma_senha" placeholder="Confirmar senha" required="required" />
+				<span class="glyphicon glyphicon-remove form-control-feedback hidden"></span>
+			</div>
+		</form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" id="btSalvarSenha"><span class="glyphicon glyphicon-ok"></span> Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- MODAL PARA ALTERACAO DE SENHAS COM SUCESSO-->
+<div class="modal fade" id="modalAlterarSenhaSuccess">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Alterar senha</h4>
+      </div>
+      <div class="modal-body" id="modalAlterarSenhaBody">
+        <p class="text-success">Sua senha foi alterada com sucesso!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal"></span> OK</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<!-- MODAL PARA CANCELAMENTO DE CONTAS -->
+<div class="modal fade" id="modalCancelarConta">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Cancelamento de Contas</h4>
+      </div>
+      <div class="modal-body">
+        <p>Deseja remover a conta <strong><%= user.apelido %></strong>?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Não, manter conta</button>
+        <button type="button" class="btn btn-danger" id="btRemoverConta"> <span class="glyphicon glyphicon-trash"></span> Sim, remover conta</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    

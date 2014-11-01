@@ -1,0 +1,67 @@
+/********************************************
+**	Arquivo de estilo de que estara em 
+**	todas as paginas
+** Autor: Antony Alkmim
+** Data: 03/06/2014
+********************************************/
+
+@import url("fonts.css"); /*arquivo de fonts*/
+
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#both{clear: both;}
+
+#header{
+	border-bottom: 1px solid #ececec;
+}
+
+#header-logo{
+	float:left;
+}
+
+#footer{
+	border-top: 3px solid #ececec;
+	padding: 20px 0 0 0;
+}
+.hidden-page{
+	display: none;
+}
+
+/*
+	WRAP LEFT
+*/
+#wrap_navigation{
+	background: #222;
+
+	height: 100%;
+}
+
+/* PLAYER-INFO */
+#player-info{
+	border-bottom: 1px solid #333;
+	margin-bottom: 10px;
+	padding: 10px 0 0;
+	color: #ececec;
+}
+
+#player-username{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+
+/*
+	CONTEUDO DAS PAGINAS
+*/
+#content-page{
+	padding-bottom:20px;
+}
+

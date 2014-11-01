@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<script>
+	
+	$(function(){
+		$("#formFinalizaPartida").submit(function(event){
+			$("#modalFinalizaPartida").modal('show');
+			var apelido = $(":checked").data('apelido');
+			$("#campeao").text(apelido);
+			$.ajax({
+				url: '/play/finaliza_partida',
+				type: 'POST',
+				data: $("#formFinalizaPartida").serialize(),
+				success: function(data){
+					location.href='player/search'
+				}
+			});
+			event.preventDefault();
+		});
+		$("#btConfirmaFimPartida").on('click',function(e){
+			location.href="/player/search"		
+		});
+		
+	});
+
+
+</script>
+
+<h1 class="page-header">Jogar</h1>
+
+<p>Página estática por falta de tempo e pregui&ccedil;a tambem! </p>
+<p class="text-danger"><strong>Só add o resultado da partida!!!</strong></p>
+
+
+<form class="form-horizontal" role="form" method="post" action="/play/finaliza_partida" id="formFinalizaPartida">
+	<input type="hidden" name='nr_jogador_1' value="<%= user.nr_jogador %>" />
+	<input type="hidden" name='nr_jogador_2' value="<%= adversario.nr_jogador %>" />
+	<div class="radio">
+  		<label>
+	    	<input type="radio" name="vencedor" id="vencedorRadio1" value="<%= user.nr_jogador %>" 
+	    	data-apelido="<%= user.apelido %>">
+	    	<strong>antonyalkmim</strong> é o vencedor
+		</label>
+	</div>
+	<div class="radio">
+		<label>
+	    <input type="radio" name="vencedor" id="vencedorRadio2" value="<%= adversario.nr_jogador %>" 
+	    data-apelido="<%= adversario.apelido %>">
+	    <strong><%= adversario.apelido %></strong> é o vencedor
+	  </label>
+	</div>
+<br/>
+	  <div class="form-group">
+	    <div class="col-sm-10">
+	      <button type="submit" class="btn btn-success" id="btTerminarPartida">
+	      <span class="glyphicon glyphicon-ok"></span>
+	      Terminar Partida
+	      </button>
+	    </div>
+	  </div>
+</form>
+
+<div class="modal fade" id="modalFinalizaPartida">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Mensagem de Confirma&ccedil;&atilde;o</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+					<strong class="bg-success" id="campeao"></strong> é o campeão!
+				</p>
+		
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" id="btConfirmaFimPartida">Confirmar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<div class="modal fade" id="modalConvite">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Enviar convite</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+					Convide seus amigos para uma partida informando o e-mail.
+				</p>
+					<form role="form" class="horizontal">
+						<div class="form-group">
+							<label for="emailConvite">E-mail do amigo:</label>
+							<input id="emailConvite" type="text" class="form-control" placeholder="E-mail"  />
+						</div>
+					</form>
+		
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" data-dismiss="modal" class="btn btn-success" id="btEnviarConvite">Enviar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+	$(document).ready(function(){
+		$('#btEnviarConvite').on('click',function(e){
+			
+			var email = $('#emailConvite').val();
+			
+			$.post( "/enviar-convite/"+ email);
+			e.preventDefault();
+			
+		});
+	
+	});
+</script>

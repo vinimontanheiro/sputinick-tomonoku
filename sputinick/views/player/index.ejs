@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">
+
+	$(function(){
+		$("#btAlterarPerfil").click(function(){
+			$("#viewPerfil").hide();
+			$("#editPerfil").show();
+		});
+
+
+		$("#inputAlterarDtNascimento").mask("99/99/9999");
+		
+
+		$("#btCalcelarSalvarAlterarPerfil").click(function(){
+			$("#viewPerfil").show();
+			$("#editPerfil").hide();
+		});
+	});
+
+
+</script>
+<style type="text/css">
+	.tab-pane{
+		padding:15px;
+	}
+</style>
+
+<h1 class="page-header"><%= perfil.nome %></h1>
+ 
+
+<div class="row">
+	<div class="col-md-2" style="">
+		<a href="#" class="thumbnail"><img src="/img/no-avatar.jpg" alt="Avatar" title="<%= perfil.apelido %>" /></a>
+	</div>
+
+	<div class="col-md-10" id="viewPerfil">
+		<table class="table table-striped">
+			<tr>
+				<td colspan="2"><span class="label 
+				<% if(perfil.pontos > 0){%>
+					label-success 
+				<%}%>
+				<%if(perfil.pontos < 0){%>
+					label-danger 
+				<%}%>
+				<%if(perfil.pontos == 0){%>
+					label-warning
+				<%}%>
+				"
+				><%= perfil.pontos %></span> pontos</td>
+			</tr>
+			<tr>
+				<th width="30%">Apelido:</th>
+				<td><%= perfil.apelido %></td>
+			</tr>
+			<tr>
+				<th width="30%">Data de cadastro:</th>
+				<td><%= perfil.dt_cadastro %></td>
+			</tr>
+			<tr>
+				<th width="30%">Data de Nascimento:</th>
+				<td>
+					<% if(perfil.dt_nascimento !== null){ %>
+						<%= perfil.dt_nascimento %>
+					<% }else{ %>
+					xx/xx/xxxx
+					<% } %>
+				</td>
+			</tr>
+			<tr>
+				<th width="30%">Cidade e Estado:</th>
+				<td>
+					<% if(perfil.cidade !== null){ %>
+					<%= perfil.cidade %>
+						<% if(perfil.uf !== null){ %>
+						 -<%= perfil.uf %>
+						 <% } %>
+					<% }else{ %>
+					Não informado!
+					<% } %>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2' align='right'>
+					<% if(user.nr_jogador == perfil.nr_jogador){%>
+					<button class="btn btn-warning btn-sm" type="button" id="btAlterarPerfil">
+						<span class="glyphicon glyphicon-pencil"></span> Alterar Perfil
+					</button>
+					<% } %>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+
+	<div class="col-md-10 hidden-page" id="editPerfil">
+		<form role="form" method="post" action="/player/alterar_perfil" id="formAlterarPerfil" class="form-horizontal">	
+			<div class="form-group">
+				<label for="inputAlterarNome" class="col-sm-3 control-label">Nome</label>
+				<div class="col-sm-9">
+				<input type="text" class="form-control" id="inputAlterarNome" name="nome_alterar" 
+					placeholder="Nome" required="required" value="<%= perfil.nome %>" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputAlterarApelido" class="col-sm-3 control-label">Apelido</label>
+				<div class="col-sm-9">
+				<input type="text" class="form-control" id="inputAlterarApelido" name="apelido" 
+					placeholder="Apelido" required="required" value="<%= perfil.apelido %>" disabled/>
+					</div>
+			</div>
+			<div class="form-group">
+				<label for="inputAlterarEmail" class="col-sm-3 control-label">E-mail</label>
+				<div class="col-sm-9">
+				<input type="email" class="form-control" id="inputAlterarEmail" name="email" placeholder="E-mail" required="required" 
+					value="<%= perfil.email %>" disabled/>
+					</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputAlterarDtNascimento" class="col-sm-3 control-label">Data de Nascimento</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control col-sm-3" id="inputAlterarDtNascimento" name="dt_nascimento_alterar"
+					 value="<%= perfil.dt_nascimento === null ? perfil.dt_nascimento : '' %>" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="selectUF" class="col-sm-3 control-label">UF</label>
+				<div class="col-sm-3">
+				<select class="form-control" id="selectUF" name="uf_alterar">
+					<option value="estado">Selecione o Estado</option> 
+					<option value="AC">Acre</option> 
+					<option value="AL">Alagoas</option> 
+					<option value="AM">Amazonas</option> 
+					<option value="AP">Amapá</option> 
+					<option value="BA">Bahia</option> 
+					<option value="CE">Ceará</option> 
+					<option value="DF">Distrito Federal</option> 
+					<option value="ES">Espírito Santo</option> 
+					<option value="GO">Goiás</option> 
+					<option value="MA">Maranhão</option> 
+					<option value="MT">Mato Grosso</option> 
+					<option value="MS">Mato Grosso do Sul</option> 
+					<option value="MG">Minas Gerais</option> 
+					<option value="PA">Pará</option> 
+					<option value="PB">Paraíba</option> 
+					<option value="PR">Paraná</option> 
+					<option value="PE">Pernambuco</option> 
+					<option value="PI">Piauí</option> 
+					<option value="RJ">Rio de Janeiro</option> 
+					<option value="RN">Rio Grande do Norte</option> 
+					<option value="RO">Rondônia</option> 
+					<option value="RS">Rio Grande do Sul</option> 
+					<option value="RR">Roraima</option> 
+					<option value="SC">Santa Catarina</option> 
+					<option value="SE">Sergipe</option> 
+					<option value="SP">São Paulo</option> 
+					<option value="TO">Tocantins</option> 
+
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputAlterarCidade" class="col-sm-3 control-label">Cidade</label>
+				<div class="col-sm-9">
+				<input type="text" class="form-control" id="inputAlterarCidade" name="cidade_alterar" placeholder="Cidade" 
+					value="<%= perfil.email == null ? perfil.email : '' %>"/>
+					</div>
+			</div>
+			
+			<div class="col-sm-offset-3 col-sm-9">
+				<button type="submit" class="btn btn-success btn-sm" id="btSalvarAlterarPerfil">
+					<span class="glyphicon glyphicon-ok"></span> Salvar Perfil</button>
+				<button type="button" class="btn btn-warning btn-sm" id="btCalcelarSalvarAlterarPerfil">
+					<span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+<h4 class="page-header">Estatísticas</h4>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#geralTab" data-toggle="tab">Geral</a></li>
+	<li><a href="#ultimosAdversariosTab" data-toggle="tab">Últimos adversários</a></li>
+	<li><a href="#historicoTab" data-toggle="tab">Histórico</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+	<div class="tab-pane active" id="geralTab">
+
+	<table class="table table-hover">
+		<tr>
+			<th colspan="2">
+				<h3>
+					<span class="label label-success">3º</span> no ranking
+					<small>
+						<span class="label  
+							<% if(perfil.pontos > 0){%>
+								label-success 
+							<%}%>
+							<%if(perfil.pontos < 0){%>
+								label-danger 
+							<%}%>
+							<%if(perfil.pontos == 0){%>
+								label-warning
+							<%}%>
+							"><%= perfil.pontos %></span> pontos
+						</small>
+				</h3>
+			</th>
+		</tr>
+		<tr>
+			<th><span class="glyphicon glyphicon-star"></span> Vitórias</th>
+			<td><%= perfil.estatisticas.vitorias %></td>
+		</tr>
+		<tr>
+			<th><span class="glyphicon glyphicon-star-empty"></span> Derrotas</th>
+			<td><%= perfil.estatisticas.derrotas %></td>
+		</tr>
+		<tr>
+			<th><span class="glyphicon glyphicon-list-alt"></span> Partidas disputadas</th>
+			<td><%= perfil.estatisticas.total_disputas %></td>
+		</tr>
+	</table>
+
+	<% if(user.nr_jogador != perfil.nr_jogador){%>
+	<br/>
+	<h4>Você contra <%= perfil.apelido %></h4>
+	<p><strong>[Dados estaticos]</strong></p>
+	<table class="table table-hover">
+		<tr>
+			<th><span class="glyphicon glyphicon-star"></span> Vitórias</th>
+			<td>32</td>
+		</tr>
+		<tr>
+			<th><span class="glyphicon glyphicon-star-empty"></span> Derrotas</th>
+			<td>21</td>
+		</tr>
+		<tr>
+			<th><span class="glyphicon glyphicon-list-alt"></span> Partidas disputadas</th>
+			<td>53</td>
+		</tr>
+	</table>	
+	<% }%>
+
+	</div>
+	<div class="tab-pane" id="ultimosAdversariosTab">
+		<p>
+			<span class="label label-success">Venceu</span>  | <span class="label label-danger">Perdeu</span>
+		</p>
+
+		<table class="table table-hover">
+			<%
+			for(var i in perfil.estatisticas.ultimos_jogos){
+			%>
+			<tr 
+				<% if(perfil.estatisticas.ultimos_jogos[i].vencedor == perfil.nr_jogador){ %>
+					class="success"
+				<%}else{%>
+					class="danger"
+				<%}%>
+			>
+				<th>
+					<span class="glyphicon glyphicon-user"></span> 
+					<%= perfil.estatisticas.ultimos_jogos[i].adversario %>
+				</th>
+				<td>
+					<span class="glyphicon glyphicon-thumbs-up"></span> 
+					<% if(perfil.estatisticas.ultimos_jogos[i].vencedor == perfil.nr_jogador){ %>
+						Você Ganhou
+					<%}else{%>
+						Você Perdeu
+					<%}%>
+				</td>
+			</tr>
+			<% } %>
+		</table>
+
+	</div>
+	<div class="tab-pane" id="historicoTab">
+		<p>
+			<span class="label label-success">Venceu</span>  | <span class="label label-danger">Perdeu</span>
+		</p>
+		<table class="table table-hover table-striped">
+			<%
+				for(var i in perfil.estatisticas.historico){
+			%>
+			<tr>
+				<td align="right" class="col-md-5 
+					<% if(perfil.estatisticas.historico[i].vencedor == perfil.nr_jogador){%>
+						success 
+					<%}else{%>danger<%}%>
+					">
+				<%= perfil.apelido %>
+				</td>
+				<td align='center' class="col-md-1"> X </td>
+				<td align="left" class="col-md-5 
+				<% if(perfil.estatisticas.historico[i].vencedor != perfil.nr_jogador){%>
+						success 
+					<%}else{%>danger<%}%>
+				"> <%= perfil.estatisticas.historico[i].adversario %></td>
+			</tr>
+			<%}%>
+			
+		</table>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+    

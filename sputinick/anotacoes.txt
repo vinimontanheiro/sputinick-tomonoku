@@ -1,0 +1,27 @@
+Home
+Cadastro Jogador
+Login jogador
+
+//PlayerController
+Cadastro
+Login
+Perfil
+Convidar Jogadores nao cadastrados
+ConvidarJogadores para jogar
+BuscarJogadores
+
+//PlayController
+Jogar
+
+//MessageController
+Chat durante jogo
+enviar mensagem
+nova mensagem
+
+
+
+
+Observacoes:
+
+Paginas estruturadas, falta somente criar as view e acoes
+

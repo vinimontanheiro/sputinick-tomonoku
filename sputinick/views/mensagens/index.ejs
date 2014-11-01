@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<h1 class="page-header">Mensagens</h1>
+
+<table summary="Lista de amigos" id="tbListaMensagens"
+	class="table table-striped">
+	<tbody>
+		<% mensagem.forEach(function(mensagem){ %>
+		<tr>
+			<td><%= mensagem.dt_envio %></td>
+			<td><%= mensagem.apelido_amigo %></td>
+			<td>
+				<a class='btn btn-mini btn-amigo btnVerMensagem' data-apelido="<%= mensagem.apelido_amigo %>" data-date="<%= mensagem.dt_envio %>" data-mensagem="<%= mensagem.conteudo %>" data-numero="<%= mensagem.nr_msg %>" data-toggle="modal" data-target="#modalEnviarMensagem" data-placement='top'
+					data-original-title='Ver mensagem' title='Ver mensagem'><i class="glyphicon glyphicon-envelope"></i>
+				</a>
+				
+			    <a  class='btn btn-mini btn-amigo btnExcluirMensagem' data-date="<%= mensagem.dt_envio %>" data-mensagem="mensagem.conteudo" data-numero="<%= mensagem.nr_msg %>"  data-toggle="modal" data-target="#modalExcluir" data-placement='top'
+			    	data-original-title='Excluir mensagem' title='Excluir mensagem'><i class="glyphicon glyphicon-trash"></i>
+			    </a>
+			</td>
+		</tr>
+		<% });%>
+	</tbody>
+</table>
+
+<%- include /modalVerMensagem.ejs %>
+<%- include /modalExcluirMensagem.ejs %>
+
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#menu-mensagem").addClass('active');
+			criaGrid();
+				
+		
+		$('.btnVerMensagem').on('click',function(e){	
+			$('#nickname').html('Mensagem enviada por <b>' + $(this).data('apelido') + '</b>');
+			$('#conteudo').html('# ' +  $(this).data('date') + ' <br/> ' + $(this).data('mensagem'));
+			e.preventDefault();
+		});
+		
+		$('.btnExcluirMensagem').on('click',function(e){
+			$('#btnExcluir').attr('data-numero',$(this).data('numero'))
+			e.preventDefault();
+		});
+		
+		
+	});
+	
+	function criaGrid(){
+		$('#tbListaMensagens').dataTable({
+			"sPaginationType" : "full_numbers",
+			"bPaginate" : true,
+			"bDestroy" : true,
+			"oLanguage" : {
+				"sProcessing" : "Aguarde enquanto os dados são carregados ...",
+				"sLengthMenu" : "Mostrar _MENU_ registros por página",
+				"sZeroRecords" : "Nenhum registro correspondente ao criterio encontrado",
+				"sInfoEmtpy" : "Exibindo 0 a 0 de 0 registros",
+				"sInfo" : "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+				"sInfoFiltered" : "",
+				"sSearch" : " ",
+				"oPaginate" : {
+					"sFirst" : "Primeiro",
+					"sPrevious" : "Anterior",
+					"sNext" : "Próximo",
+					"sLast" : "Último"
+				}
+			},
+			"aoColumns": [
+			              null,
+			              null,
+			              null
+			            ]
+		});
+		tratarGrid();
+	}
+	
+	function tratarGrid(){
+		$('table tbody tr td:nth-child(2)').css('padding-top','30px');
+		$('table tbody tr td:nth-child(3)').css('padding-top','22px');
+		$('table thead').hide();
+		$('table.dataTable.no-footer').css('border','none');
+		$('input[aria-controls="tbListaMensagens"]').addClass('form-control')
+		.attr('placeholder','Encontrar mensagem').css('width','200px');
+		$('#tbListaMensagens_filter label').append('<i class="glyphicon glyphicon-search"></i>');
+		$('.glyphicon-search').css({'position ' : 'relative','top' :'-23px','left' : '-15px'});
+		$('.btn-amigo').css('border','1px solid #00B7FF');
+	}
+
+
+</script>
+    

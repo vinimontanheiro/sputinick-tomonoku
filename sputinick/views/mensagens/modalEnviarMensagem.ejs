@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<div class="modal fade" id="modalEnviarMensagem">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Enviar mensagem</h4>
+			</div>
+			<div class="modal-body">
+				<p>Enviar mensagem para amigo.</p>
+					<form role="form" class="horizontal">
+						<div class="form-group">
+							<textarea style="width:100%;" rows="9" id="mensagem" placeholder="Mensagem"></textarea>
+						</div>
+					</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" data-dismiss="modal" class="btn btn-success" id="btnEnviar">Enviar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+	$(document).ready(function(){
+		$('#btnEnviar').on('click',function(e){
+			
+			var texto = $('#mensagem').val();
+			var id = $('#btnEnviar').data('numero');
+			var mensagem = {
+					'nr_jogador' : id,
+					'mensagem' : texto
+			};
+			$.ajax({
+				url: "/mensagens/enviar/",
+				type:'POST',
+				data: mensagem	
+			}).error(function erro(err) {
+				console.log(err);
+			});
+			e.preventDefault();
+			
+		});
+	
+	});
+</script>
