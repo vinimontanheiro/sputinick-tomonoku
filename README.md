@@ -1,8 +1,8 @@
 ################################################################
 
-Sputinick Tomonoku - Jogo da velha multiplayer
+## Sputinick Tomonoku - Jogo da velha multiplayer
 
-Trabalho de banco de dados - PUC GO
+### Trabalho de banco de dados - PUC GO
 
 ################################################################
 
@@ -10,11 +10,11 @@ Trabalho de banco de dados - PUC GO
 
 
 
-Requisitios:
-!- NODEJS - http://nodejs.org
-!- Postgresql http://www.postgresql.org
+### Requisitios:
+### NODEJS - http://nodejs.org
+### Postgresql http://www.postgresql.org
 
-To install: 
+### To install: 
 ```# npm install ```
 
 
