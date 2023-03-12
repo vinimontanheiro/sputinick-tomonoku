@@ -1,12 +1,20 @@
-Sputinick-tomonoku
-==================
+################################################################
 
-Aplicação web - Jogo da velha multiplayer
+Sputinick Tomonoku - Jogo da velha multiplayer
+
+Trabalho de banco de dados - PUC GO
+
+################################################################
+
+
+
+
 
 Requisitios:
 !- NODEJS - http://nodejs.org
 !- Postgresql http://www.postgresql.org
 
 To install: 
-CD project folder
-# npm install
+```# npm install ```
+
+
