@@ -10,11 +10,11 @@
 
 
 
-### Requisitios:
-### NODEJS - http://nodejs.org
-### Postgresql http://www.postgresql.org
+### Requisitos:
+#### NODEJS - http://nodejs.org
+#### Postgresql http://www.postgresql.org
 
-### To install: 
+#### To install: 
 ```# npm install ```
 
 
